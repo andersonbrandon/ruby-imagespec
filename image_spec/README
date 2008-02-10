@@ -1,0 +1,19 @@
+ImageSpec
+=========
+
+ImageSpec is a lightweight module designed to extract width/height dimensions from most standard image formats, as well as SWFs.
+
+This is a work in progress.  I intend on expanding this to include other details (EXIF, various metadata, etc.) as well.
+
+
+Example
+=======
+
+instance = ImageSpec::Dimensions.new('/path/to/your/file')
+
+instance.width
+instance.height
+
+Pretty simple, huh?
+
+Copyright (c) 2008 Brandon Anderson, released under the MIT license
