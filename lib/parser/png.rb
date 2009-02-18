@@ -1,6 +1,6 @@
 class ImageSpec
 
-  module Parsers
+  module Parser
 
     class PNG
 

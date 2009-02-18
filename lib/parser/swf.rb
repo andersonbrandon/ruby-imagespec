@@ -2,7 +2,7 @@ require 'zlib'
 
 class ImageSpec
 
-  module Parsers
+  module Parser
 
     class SWF
 

@@ -1,5 +1,5 @@
 require 'open-uri'
-Dir[File.join(File.dirname(__FILE__), 'parsers/*')].each { |f| require f }
+Dir[File.join(File.dirname(__FILE__), 'parser/*.rb')].each { |f| require f }
 
 class ImageSpec
 
@@ -10,14 +10,14 @@ class ImageSpec
     filename = stream.path || file
 
     @width, @height = case
-    when Parsers::GIF.gif?(stream)
-      Parsers::GIF.dimensions(stream)
-    when Parsers::JPEG.jpeg?(stream)
-      Parsers::JPEG.dimensions(stream)
-    when Parsers::PNG.png?(stream)
-      Parsers::PNG.dimensions(stream)
-    when Parsers::SWF.swf?(stream)
-      Parsers::SWF.dimensions(stream)
+    when Parser::GIF.gif?(stream)
+      Parser::GIF.dimensions(stream)
+    when Parser::JPEG.jpeg?(stream)
+      Parser::JPEG.dimensions(stream)
+    when Parser::PNG.png?(stream)
+      Parser::PNG.dimensions(stream)
+    when Parser::SWF.swf?(stream)
+      Parser::SWF.dimensions(stream)
     else
       raise "#{File.basename(filename)} is not supported. Sorry bub :("
     end
