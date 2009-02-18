@@ -18,10 +18,10 @@ class ImageSpec
     @content_type ||= content_type_from_filename(@filename)
 
     @width, @height = case CONTENT_TYPES[@content_type]
-      when :gif  then GIF.dimensions(@stream)
-      when :jpeg then JPEG.dimensions(@stream)
-      when :png  then PNG.dimensions(@stream)
-      when :swf  then SWF.dimensions(@stream)
+      when :gif  then Parsers::GIF.dimensions(@stream)
+      when :jpeg then Parsers::JPEG.dimensions(@stream)
+      when :png  then Parsers::PNG.dimensions(@stream)
+      when :swf  then Parsers::SWF.dimensions(@stream)
     end
   end
 
