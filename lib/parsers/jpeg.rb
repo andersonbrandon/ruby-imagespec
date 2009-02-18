@@ -1,14 +1,10 @@
 module ImageSpec
-  
+
   class JPEG
-    
-    def self.dimensions(file)
-      File.open(file, 'rb') { |io| examineJPEG(io) }
-    end
-  
-    def self.examineJPEG(io)
+
+    def self.dimensions(io)
        raise 'malformed JPEG' unless io.getc == 0xFF && io.getc == 0xD8 # SOI
-       
+
        class << io
          def readint; (readchar << 8) + readchar; end
          def readframe; read(readint - 2); end
@@ -26,20 +22,18 @@ module ImageSpec
            length, bits, height, width, components = io.readsof
            raise 'malformed JPEG' unless length == 8 + components * 3
            return [width, height]
-         when 0xD9, 0xDA:  
+         when 0xD9, 0xDA:
            break
-         when 0xFE:        
+         when 0xFE:
            @comment = io.readframe
-         when 0xE1:        
+         when 0xE1:
            io.readframe
-         else              
+         else
            io.readframe
          end
        end
      end
-     
-  end
-  
-end
 
-# /Users/Brandon/Pictures/A Lovecracking Bottleneck.jpg
+  end
+
+end
