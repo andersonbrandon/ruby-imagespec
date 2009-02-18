@@ -6,9 +6,15 @@ class ImageSpec
 
     class SWF
 
+      def self.swf?(stream)
+        stream.rewind
+        stream.read(3) =~ /(F|C)WS/ ? true : false
+      end
+
       def self.dimensions(file)
         # Read the entire file into memory because the
         # dimensions aren't stored in a standard location
+        file.rewind
         contents = file.read
 
         # Our 'signature' is the first 3 bytes

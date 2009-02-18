@@ -4,9 +4,14 @@ class ImageSpec
 
     class GIF
 
-      def self.dimensions(file)
-        file.seek(6)
-        file.read(4).unpack('SS')
+      def self.gif?(stream)
+        stream.rewind
+        stream.read(4) == 'GIF8'
+      end
+
+      def self.dimensions(stream)
+        stream.seek(6)
+        stream.read(4).unpack('SS')
       end
 
     end
