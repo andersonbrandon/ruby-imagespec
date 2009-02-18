@@ -2,13 +2,6 @@ Dir[File.join(File.dirname(__FILE__), 'parsers/*')].each { |f| require f }
 
 class ImageSpec
 
-  CONTENT_TYPES = {
-    'image/gif'  => :gif,
-    'image/jpeg' => :jpeg,
-    'image/png'  => :png,
-    'application/x-shockwave-flash' => :swf
-  }
-
   attr_reader :filename, :stream, :content_type
   attr_reader :width, :height
 
@@ -17,11 +10,15 @@ class ImageSpec
     @filename = @stream.path || file
     @content_type ||= content_type_from_filename(@filename)
 
-    @width, @height = case CONTENT_TYPES[@content_type]
-      when :gif  then Parsers::GIF.dimensions(@stream)
-      when :jpeg then Parsers::JPEG.dimensions(@stream)
-      when :png  then Parsers::PNG.dimensions(@stream)
-      when :swf  then Parsers::SWF.dimensions(@stream)
+    @width, @height = case @content_type
+    when 'image/gif'
+      Parsers::GIF.dimensions(@stream)
+    when 'image/jpeg'
+      Parsers::JPEG.dimensions(@stream)
+    when 'image/png'
+      Parsers::PNG.dimensions(@stream)
+    when 'application/x-shockwave-flash'
+      Parsers::SWF.dimensions(@stream)
     end
   end
 
