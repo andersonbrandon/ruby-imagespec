@@ -1,3 +1,4 @@
+require 'open-uri'
 Dir[File.join(File.dirname(__FILE__), 'parsers/*')].each { |f| require f }
 
 class ImageSpec
@@ -30,7 +31,7 @@ class ImageSpec
       when /^\.jpe?g$/ then 'image/jpeg'
       when '.png'      then 'image/png'
       when '.swf'      then 'application/x-shockwave-flash'
-      else raise "Unsupported file type. Sorry bub :("
+      else raise "#{File.extname(filename)} is not supported. Sorry bub :("
     end
   end
 
@@ -38,17 +39,11 @@ class ImageSpec
     if file.respond_to?(:read)
       file
     elsif file.is_a?(String)
-      begin
-        File.new(file, 'rb')
-      rescue
-        require 'net/http'
-        require 'uri'
-        response = Net::HTTP.get_response(URI.parse(file))
-        @content_type = response.header['content-type']
-        StringIO.new(response.body)
-      end
+      stream = open(file)
+      @content_type = stream.content_type if stream.respond_to?(:content_type)
+      stream
     else
-      raise 'Unable to read source file'
+      raise "Unable to read #{file}"
     end
   end
 
