@@ -1,4 +1,4 @@
-module ImageSpec
+class ImageSpec
 
   class GIF
 

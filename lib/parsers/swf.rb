@@ -1,6 +1,6 @@
 require 'zlib'
 
-module ImageSpec
+class ImageSpec
 
   class SWF
 

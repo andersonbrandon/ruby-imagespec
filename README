@@ -9,11 +9,23 @@ This is a work in progress.  I intend on expanding this to include other details
 Example
 =======
 
+# From a file in your file system
 instance = ImageSpec::Dimensions.new('/path/to/your/file')
+
+# From a URL
+instance = ImageSpec::Dimensions.new('http://example.com/image.png')
+
+# From an IO stream
+file = File.new('/path/to/your/file', 'rb')
+instance = ImageSpec::Dimensions.new(file)
 
 instance.width
 instance.height
 
+
+
 Pretty simple, huh?
 
 Copyright (c) 2008 Brandon Anderson, released under the MIT license
+
+Contributions by: Michael Sheakoski
