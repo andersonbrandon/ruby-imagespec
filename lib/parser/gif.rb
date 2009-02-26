@@ -4,7 +4,7 @@ class ImageSpec
 
     class GIF
 
-      def self.gif?(stream)
+      def self.detected?(stream)
         stream.rewind
         stream.read(4) == 'GIF8'
       end

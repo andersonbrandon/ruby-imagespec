@@ -1,5 +1,5 @@
 require 'open-uri'
-Dir[File.join(File.dirname(__FILE__), 'parser/*.rb')].each { |f| require f }
+require File.join(File.dirname(__FILE__), 'parser')
 
 class ImageSpec
 
@@ -9,18 +9,7 @@ class ImageSpec
     stream   = stream_for(file)
     filename = stream.path || file
 
-    @width, @height = case
-    when Parser::GIF.gif?(stream)
-      Parser::GIF.dimensions(stream)
-    when Parser::JPEG.jpeg?(stream)
-      Parser::JPEG.dimensions(stream)
-    when Parser::PNG.png?(stream)
-      Parser::PNG.dimensions(stream)
-    when Parser::SWF.swf?(stream)
-      Parser::SWF.dimensions(stream)
-    else
-      raise "#{File.basename(filename)} is not supported. Sorry bub :("
-    end
+    @width, @height = Parser.parse(stream)
   end
 
   private
@@ -31,7 +20,7 @@ class ImageSpec
     elsif file.is_a?(String)
       open(file, 'rb')
     else
-      raise "Unable to read #{file}"
+      raise "Unable to get stream for #{file.inspect}"
     end
   end
 

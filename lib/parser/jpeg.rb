@@ -4,7 +4,7 @@ class ImageSpec
 
     class JPEG
 
-      def self.jpeg?(stream)
+      def self.detected?(stream)
         stream.rewind
         case stream.read(10)
           when /^\xff\xd8\xff\xe0\x00\x10JFIF/ then true

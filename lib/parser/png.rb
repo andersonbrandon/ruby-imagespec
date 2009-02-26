@@ -4,7 +4,7 @@ class ImageSpec
 
     class PNG
 
-      def self.png?(stream)
+      def self.detected?(stream)
         stream.rewind
         stream.read(4) == "\x89PNG"
       end

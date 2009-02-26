@@ -6,7 +6,7 @@ class ImageSpec
 
     class SWF
 
-      def self.swf?(stream)
+      def self.detected?(stream)
         stream.rewind
         stream.read(3) =~ /(F|C)WS/ ? true : false
       end
