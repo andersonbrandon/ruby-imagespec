@@ -10,7 +10,7 @@ class ImageSpec
 
     def self.parse(stream)
       formats.each do |format|
-        return format.dimensions(stream) if format.detected?(stream)
+        return format.attributes(stream) if format.detected?(stream)
       end
       raise "#{stream.inspect} is not a supported image format. Sorry bub :("
     end

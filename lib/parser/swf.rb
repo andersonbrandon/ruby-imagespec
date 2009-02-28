@@ -4,24 +4,31 @@ class ImageSpec
 
   module Parser
 
+    CONTENT_TYPE = 'application/x-shockwave-flash'
+
     class SWF
+
+      def self.attributes(stream)
+        width, height = dimensions(stream)
+        {:width => width, :height => height, :content_type => CONTENT_TYPE}
+      end
 
       def self.detected?(stream)
         stream.rewind
         stream.read(3) =~ /(F|C)WS/ ? true : false
       end
 
-      def self.dimensions(file)
-        # Read the entire file into memory because the
+      def self.dimensions(stream)
+        # Read the entire stream into memory because the
         # dimensions aren't stored in a standard location
-        file.rewind
-        contents = file.read
+        stream.rewind
+        contents = stream.read
 
         # Our 'signature' is the first 3 bytes
         # Either FWS or CWS.  CWS indicates compression
         signature = contents[0..2]
 
-        # Determine the length of the uncompressed file
+        # Determine the length of the uncompressed stream
         length = contents[4..7].unpack('V').join.to_i
 
         # If we do, in fact, have compression
@@ -29,7 +36,7 @@ class ImageSpec
           # Decompress the body of the SWF
           body = Zlib::Inflate.inflate( contents[8..length] )
 
-          # And reconstruct the file contents to the first 8 bytes (header)
+          # And reconstruct the stream contents to the first 8 bytes (header)
           # Plus our decompressed body
           contents = contents[0..7] + body
         end
@@ -43,7 +50,7 @@ class ImageSpec
         # Determine how many bytes rectbits composes (ceil(rectbits/8))
         rectbytes = (rectbits.to_f / 8).ceil
 
-        # Unpack the RECT structure from the file in little-endian bit order, then join it into a string
+        # Unpack the RECT structure from the stream in little-endian bit order, then join it into a string
         rect = contents[8..(8 + rectbytes)].unpack("#{'B8' * rectbytes}").join()
 
         # Read in nbits incremenets starting from 5

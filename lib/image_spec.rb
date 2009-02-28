@@ -3,13 +3,16 @@ require File.join(File.dirname(__FILE__), 'parser')
 
 class ImageSpec
 
-  attr_reader :width, :height
-
   def initialize(file)
-    stream   = stream_for(file)
-    filename = stream.path || file
+    @attributes = Parser.parse(stream_for(file))
 
-    @width, @height = Parser.parse(stream)
+    @attributes.each do |key, value|
+      instance_eval <<-RUBY, __FILE__, __LINE__ + 1
+        def #{key}
+          @attributes[:#{key}]
+        end
+      RUBY
+    end
   end
 
   private

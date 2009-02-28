@@ -4,6 +4,13 @@ class ImageSpec
 
     class JPEG
 
+      CONTENT_TYPE = 'image/jpeg'
+
+      def self.attributes(stream)
+        width, height = dimensions(stream)
+        {:width => width, :height => height, :content_type => CONTENT_TYPE}
+      end
+
       def self.detected?(stream)
         stream.rewind
         case stream.read(10)
@@ -13,11 +20,11 @@ class ImageSpec
         end
       end
 
-      def self.dimensions(io)
-        io.rewind
-        raise 'malformed JPEG' unless io.getc == 0xFF && io.getc == 0xD8 # SOI
+      def self.dimensions(stream)
+        stream.rewind
+        raise 'malformed JPEG' unless stream.getc == 0xFF && stream.getc == 0xD8 # SOI
 
-        class << io
+        class << stream
           def readint
             (readchar << 8) + readchar
           end
@@ -37,20 +44,20 @@ class ImageSpec
           end
         end
 
-        while marker = io.next
+        while marker = stream.next
           case marker
           when 0xC0..0xC3, 0xC5..0xC7, 0xC9..0xCB, 0xCD..0xCF
-            length, bits, height, width, components = io.readsof
+            length, bits, height, width, components = stream.readsof
             raise 'malformed JPEG' unless length == 8 + components * 3
             return [width, height]
           when 0xD9, 0xDA
             break
           when 0xFE
-            @comment = io.readframe
+            @comment = stream.readframe
           when 0xE1
-            io.readframe
+            stream.readframe
           else
-            io.readframe
+            stream.readframe
           end
         end
       end
