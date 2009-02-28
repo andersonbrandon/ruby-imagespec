@@ -21,7 +21,7 @@ instance = ImageSpec.new(file)
 
 instance.width
 instance.height
-
+instance.content_type
 
 Pretty simple, huh?
 
