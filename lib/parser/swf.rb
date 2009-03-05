@@ -4,9 +4,9 @@ class ImageSpec
 
   module Parser
 
-    CONTENT_TYPE = 'application/x-shockwave-flash'
-
     class SWF
+
+      CONTENT_TYPE = 'application/x-shockwave-flash'
 
       def self.attributes(stream)
         width, height = dimensions(stream)
