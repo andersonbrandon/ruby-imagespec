@@ -51,7 +51,6 @@ class ImageSpec
         rectbytes = (rectbits.to_f / 8).ceil
 
         # Unpack the RECT structure from the stream in little-endian bit order, then join it into a string
-        #rect = contents[8..(8 + rectbytes)].unpack("#{'B8' * rectbytes}").join()
         rect = contents[8..(8 + rectbytes)].unpack("#{'B8' * rectbytes}").join()
 
         # Read in nbits incremenets starting from 5
