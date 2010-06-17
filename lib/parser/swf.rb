@@ -30,19 +30,19 @@ class ImageSpec
 
         # Determine the length of the uncompressed stream
         length = contents[4..7].unpack('V').join.to_i
-
+        
         # If we do, in fact, have compression
         if signature == 'CWS'
           # Decompress the body of the SWF
           body = Zlib::Inflate.inflate( contents[8..length] )
-
+          
           # And reconstruct the stream contents to the first 8 bytes (header)
           # Plus our decompressed body
           contents = contents[0..7] + body
         end
 
         # Determine the nbits of our dimensions rectangle
-        nbits = contents[8] >> 3
+        nbits =contents.unpack('c'*contents.length)[8] >> 3
 
         # Determine how many bits long this entire RECT structure is
         rectbits = 5 + nbits * 4    # 5 bits for nbits, as well as nbits * number of fields (4)
@@ -51,6 +51,7 @@ class ImageSpec
         rectbytes = (rectbits.to_f / 8).ceil
 
         # Unpack the RECT structure from the stream in little-endian bit order, then join it into a string
+        #rect = contents[8..(8 + rectbytes)].unpack("#{'B8' * rectbytes}").join()
         rect = contents[8..(8 + rectbytes)].unpack("#{'B8' * rectbytes}").join()
 
         # Read in nbits incremenets starting from 5
@@ -68,7 +69,6 @@ class ImageSpec
 
         # If you can't figure this one out, you probably shouldn't have read this far
         return [width, height]
-
       end
 
     end
