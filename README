@@ -25,6 +25,6 @@ instance.content_type
 
 Pretty simple, huh?
 
-Copyright (c) 2008 Brandon Anderson, released under the MIT license
+Copyright (c) 2008-2011 Brandon Anderson, released under the MIT license
 
-Contributions by Michael Sheakoski and Mike Boone
+Contributions by Michael Sheakoski, Mike Boone and Dimitrij Denissenko

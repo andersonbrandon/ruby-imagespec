@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brandon Anderson", "Michael Sheakoski", "Mike Boone", "Dimitrij Denissenko"]
-  s.date = %q{2010-08-16}
+  s.date = %q{2011-02-08}
   s.description = %q{A lightweight module designed to extract the width/height dimensions of various image types. Also supports SWFs.}
-  s.email = %q{dimitrij@blacksquaremedia.com}
+  s.email = %q{anderson.brandon@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README"
@@ -31,11 +31,11 @@ Gem::Specification.new do |s|
      "tasks/image_spec_tasks.rake",
      "test/image_spec_test.rb"
   ]
-  s.homepage = %q{http://github.com/dim/ruby-imagespec}
+  s.homepage = %q{http://github.com/andersonbrandon/ruby-imagespec}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Image/Flash extract width/height dimensions extractor}
+  s.summary = %q{Image/Flash width/height dimensions extractor}
   s.test_files = [
     "test/image_spec_test.rb"
   ]
