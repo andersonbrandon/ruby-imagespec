@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-imagespec}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Brandon Anderson", "Michael Sheakoski", "Mike Boone", "Dimitrij Denissenko"]
-  s.date = %q{2011-02-08}
-  s.description = %q{A lightweight module designed to extract the width/height dimensions of various image types. Also supports SWFs.}
+  s.authors = ["Brandon Anderson", "Michael Sheakoski", "Mike Boone", "Dimitrij Denissenko", "Juan Pablo Lopez"]
+  s.date = %q{2013-02-04}
+  s.description = %q{A lightweight module designed to extract the width/height dimensions of various image types. Also supports SWFs. No supports SWF version too.}
   s.email = %q{anderson.brandon@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
