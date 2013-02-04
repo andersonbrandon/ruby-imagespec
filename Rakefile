@@ -26,14 +26,15 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "ruby-imagespec"
     gemspec.summary = "Image/Flash extract width/height dimensions extractor"
-    gemspec.description = "A lightweight module designed to extract the width/height dimensions of various image types. Also supports SWFs."
+    gemspec.description = "A lightweight module designed to extract the width/height dimensions of various image types. Also supports SWFs. Now supports version for SWFs."
     gemspec.email = "dimitrij@blacksquaremedia.com"
     gemspec.homepage = "http://github.com/dim/ruby-imagespec"
     gemspec.authors = [
       "Brandon Anderson",
       "Michael Sheakoski",
       "Mike Boone",
-      "Dimitrij Denissenko"]
+      "Dimitrij Denissenko",
+      "Juan Pablo Lopez N."]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

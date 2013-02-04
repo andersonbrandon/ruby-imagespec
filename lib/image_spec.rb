@@ -5,7 +5,7 @@ class ImageSpec
 
   def initialize(file)
     @attributes = Parser.parse(stream_for(file))
-
+    
     @attributes.each do |key, value|
       instance_eval <<-RUBY, __FILE__, __LINE__ + 1
         def #{key}
