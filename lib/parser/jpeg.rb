@@ -14,8 +14,8 @@ class ImageSpec
       def self.detected?(stream)
         stream.rewind
         case stream.read(10)
-          when /^\xff\xd8\xff\xe0\x00\x10JFIF/ then true
-          when /^\xff\xd8\xff\xe1(.*){2}Exif/  then true
+          when /^\xff\xd8\xff\xe0\x00\x10JFIF/n then true
+          when /^\xff\xd8\xff\xe1(.*){2}Exif/n then true
           else false
         end
       end
